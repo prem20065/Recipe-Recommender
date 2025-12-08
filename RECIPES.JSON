@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Tomato Egg Stir Fry",
+    "ingredients": ["egg", "tomato", "oil", "salt"],
+    "steps": "Beat eggs, fry in oil, add tomatoes and salt, cook for a few minutes.",
+    "calories": 250,
+    "veg": false
+  },
+  {
+    "id": 2,
+    "name": "Simple Veg Fried Rice",
+    "ingredients": ["rice", "carrot", "peas", "onion", "oil", "soy sauce", "salt"],
+    "steps": "Stir fry veggies, add cooked rice, soy sauce, salt. Mix well.",
+    "calories": 400,
+    "veg": true
+  },
+  {
+    "id": 3,
+    "name": "Masala Maggi",
+    "ingredients": ["maggi", "water", "masala", "onion", "tomato"],
+    "steps": "Cook maggi with water and masala, add sautéed onion and tomato.",
+    "calories": 350,
+    "veg": true
+  }
+]
