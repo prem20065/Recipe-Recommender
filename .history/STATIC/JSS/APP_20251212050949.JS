@@ -20,43 +20,50 @@ function renderRecipes(recipes) {
         const card = document.createElement("div");
         card.className = "recipe-card";
 
-        const imageURL = recipe.image || "/static/images/placeholder.png"; // add placeholder image file
         card.innerHTML = `
-            <img src="${imageURL}" alt="${recipe.name}" />
-            <div class="recipe-content">
-              <h2 class="recipe-title">${recipe.name}</h2>
-              <p class="small"><b>Ingredients:</b> ${recipe.ingredients.join(", ")}</p>
-              <p class="small"><b>Calories:</b> ${recipe.calories}</p>
-            </div>
+            <h2>${recipe.name}</h2>
+            <p><b>Ingredients:</b> ${recipe.ingredients.join(", ")}</p>
+            <p><b>Calories:</b> ${recipe.calories}</p>
         `;
+
         container.appendChild(card);
     });
 }
 
-// add search integration
-function getSearchQuery() {
-    return document.getElementById("search-input").value.trim().toLowerCase();
+function getSelectedIngredients() {
+    const checkboxes = document.querySelectorAll("#ingredients-list input[type='checkbox']:checked");
+    const selected = [];
+    checkboxes.forEach(cb => selected.push(cb.value));
+    return selected;
 }
 
 function filterRecipes() {
     const selected = getSelectedIngredients();
-    const q = getSearchQuery();
 
-    let filtered = allRecipes.filter(recipe => {
-        // ingredient match
-        const ingOk = selected.length === 0 || selected.every(ing => recipe.ingredients.includes(ing));
-        // search match
-        const nameOk = q === "" || recipe.name.toLowerCase().includes(q);
-        return ingOk && nameOk;
+    if (selected.length === 0) {
+        // if nothing selected, show all
+        renderRecipes(allRecipes);
+        return;
+    }
+
+    const filtered = allRecipes.filter(recipe => {
+        // check if all selected ingredients are present in recipe.ingredients
+        return selected.every(ing => recipe.ingredients.includes(ing));
     });
 
     renderRecipes(filtered);
 }
 
-// attach search enter + live search (optional)
+function clearFilters() {
+    const checkboxes = document.querySelectorAll("#ingredients-list input[type='checkbox']");
+    checkboxes.forEach(cb => cb.checked = false);
+    renderRecipes(allRecipes);
+}
+
+// attach event listeners once DOM is ready
 window.addEventListener("DOMContentLoaded", () => {
     loadRecipes();
+
     document.getElementById("filter-btn").addEventListener("click", filterRecipes);
     document.getElementById("clear-btn").addEventListener("click", clearFilters);
-    document.getElementById("search-input").addEventListener("input", filterRecipes);
 });

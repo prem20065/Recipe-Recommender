@@ -1,12 +1,37 @@
-let allRecipes = []; // to store all recipes from backend
-
-async function loadRecipes() {
-    const res = await fetch("/api/recipes");
-    const recipes = await res.json();
-    allRecipes = recipes; // save globally
-    renderRecipes(recipes); // show all initially
+body {
+  font-family: Arial, sans-serif;
 }
 
+h1 {
+  text-align: center;
+}
+#filter-section {
+    max-width: 800px;
+    margin: 0 auto 20px;
+    padding: 10px;
+}
+
+#ingredients-list label {
+    margin-right: 10px;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+#filter-btn,
+#clear-btn {
+    margin-top: 10px;
+    margin-right: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.recipe-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 10px;
+    max-width: 800px;
+}
 function renderRecipes(recipes) {
     const container = document.getElementById("recipes-container");
     container.innerHTML = "";
