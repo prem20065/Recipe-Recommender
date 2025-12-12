@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recipe Recommender</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+
+<body>
+  <h1>Recipe Recommender</h1>
+
+  <section id="filter-section">
+    <div style="display:flex; gap:10px; align-items:center; justify-content:center;">
+      <input id="search-input" type="text" placeholder="Search recipes by name..." style="width:50%; padding:8px;"/>
+    </div>
+
+    <h3>Select ingredients you have:</h3>
+    
+     <div id="ingredients-list">
+  <label><input type="checkbox" value="egg"> Egg</label>
+  <label><input type="checkbox" value="tomato"> Tomato</label>
+  <label><input type="checkbox" value="oil"> Oil</label>
+  <label><input type="checkbox" value="salt"> Salt</label>
+
+  <label><input type="checkbox" value="rice"> Rice</label>
+  <label><input type="checkbox" value="carrot"> Carrot</label>
+  <label><input type="checkbox" value="peas"> Peas</label>
+  <label><input type="checkbox" value="onion"> Onion</label>
+
+  <label><input type="checkbox" value="soy sauce"> Soy Sauce</label>
+
+  <label><input type="checkbox" value="maggi"> Maggi</label>
+  <label><input type="checkbox" value="water"> Water</label>
+  <label><input type="checkbox" value="masala"> Masala</label>
+</div>
+
+    
+
+    <div style="text-align:center; margin-top:8px;">
+      <button id="filter-btn">Filter Recipes</button>
+      <button id="clear-btn">Clear</button>
+    </div>
+  </section>
+
+  <hr />
+
+  <div id="recipes-container" class="grid"></div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+ 
+ 
+
+  
+
+</html>
