@@ -168,3 +168,30 @@ window.addEventListener("DOMContentLoaded", () => {
     // live search
     document.getElementById("search-input").addEventListener("input", filterRecipes);
 });
+// ---------------------------
+// MODAL LOGIC
+// ---------------------------
+const modal = document.getElementById("recipe-modal");
+const closeModalBtn = document.getElementById("close-modal");
+
+function openModal(recipe) {
+    document.getElementById("modal-title").innerText = recipe.name;
+    document.getElementById("modal-ingredients").innerHTML =
+        "<b>Ingredients:</b> " + recipe.ingredients.join(", ");
+    document.getElementById("modal-steps").innerHTML =
+        "<b>Steps:</b> " + recipe.steps;
+    document.getElementById("modal-calories").innerHTML =
+        "<b>Calories:</b> " + recipe.calories;
+
+    modal.classList.remove("hidden");
+}
+
+closeModalBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.classList.add("hidden");
+    }
+});
