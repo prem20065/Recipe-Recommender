@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, send_from_directory
 
 # Get absolute path to app directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -29,6 +29,13 @@ def get_recipes():
     """API endpoint to get all recipes"""
     recipes = load_recipes()
     return jsonify(recipes)
+
+
+@app.route('/images/<path:filename>')
+def template_image(filename):
+    """Serve image files stored under templates/images for convenience."""
+    images_dir = os.path.join(BASE_DIR, 'templates', 'images')
+    return send_from_directory(images_dir, filename)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
