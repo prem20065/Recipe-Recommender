@@ -197,6 +197,27 @@ window.addEventListener("DOMContentLoaded", () => {
     if (searchInput) {
         searchInput.addEventListener("input", filterRecipes);
     }
+const themeToggle = document.getElementById("theme-toggle");
+
+if (themeToggle) {
+    // load saved theme
+    if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+        themeToggle.innerText = "☀️ Light Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+
+        if (document.body.classList.contains("dark")) {
+            localStorage.setItem("theme", "dark");
+            themeToggle.innerText = "☀️ Light Mode";
+        } else {
+            localStorage.setItem("theme", "light");
+            themeToggle.innerText = "🌙 Dark Mode";
+        }
+    });
+}
 
     // modal elements (SAFE)
     const modal = document.getElementById("recipe-modal");
