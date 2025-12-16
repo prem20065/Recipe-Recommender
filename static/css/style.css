@@ -216,3 +216,14 @@ body.dark .small {
   background: #2ecc71;
   color: #fff;
 }
+.stats {
+  background: #f1f3f5;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+body.dark .stats {
+  background: #1e1e1e;
+}

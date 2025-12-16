@@ -87,22 +87,23 @@ function getSelectedIngredients() {
 function getSearchQuery() {
     return document.getElementById("search-input").value.trim().toLowerCase();
 }
-
+trackEvent("filters_used");
 function filterRecipes() {
-    const selected = getSelectedIngredients();
-    const query = getSearchQuery();
+    
 
-    const filtered = allRecipes.filter(recipe => {
-        const ingredientMatch =
-            selected.length === 0 ||
-            selected.every(i => recipe.ingredients.includes(i));
+   const filtered = allRecipes
+    .map(recipe => {
+        const missingCount = getSelectedIngredients()
+            .filter(i => !recipe.ingredients.includes(i)).length;
 
-        const nameMatch =
-            query === "" ||
-            recipe.name.toLowerCase().includes(query);
+        return { ...recipe, score: missingCount };
+    })
+    .filter(recipe => {
+        const query = getSearchQuery();
+        return query === "" || recipe.name.toLowerCase().includes(query);
+    })
+    .sort((a, b) => a.score - b.score); // best match first
 
-        return ingredientMatch && nameMatch;
-    });
 
     renderRecipes(filtered);
 }
@@ -132,6 +133,8 @@ function isFavorite(id) {
 }
 
 function toggleFavorite(id, btn) {
+    trackEvent("favorites", id);
+
     let favs = loadFavorites();
 
     if (favs.includes(id)) {
@@ -151,7 +154,9 @@ function toggleFavorite(id, btn) {
 const modal = document.getElementById("recipe-modal");
 const closeModalBtn = document.getElementById("close-modal");
 
+trackEvent("recipe_views", recipe.id);
 function openModal(recipe) {
+    
     const modal = document.getElementById("recipe-modal");
     if (!modal) return;
 
@@ -236,3 +241,37 @@ if (themeToggle) {
     }
 });
 
+// ===============================
+// ANALYTICS (LOCAL STORAGE)
+// ===============================
+function getAnalytics() {
+    return JSON.parse(localStorage.getItem("analytics") || "{}");
+}
+
+function saveAnalytics(data) {
+    localStorage.setItem("analytics", JSON.stringify(data));
+}
+
+function trackEvent(type, recipeId = null) {
+    const analytics = getAnalytics();
+
+    analytics[type] = analytics[type] || {};
+    if (recipeId) {
+        analytics[type][recipeId] = (analytics[type][recipeId] || 0) + 1;
+    } else {
+        analytics[type].count = (analytics[type].count || 0) + 1;
+    }
+
+    saveAnalytics(analytics);
+}
+function updateStats() {
+    const analytics = getAnalytics();
+
+    const filters = analytics.filters_used?.count || 0;
+    const views = Object.values(analytics.recipe_views || {}).reduce((a, b) => a + b, 0);
+    const favs = Object.values(analytics.favorites || {}).reduce((a, b) => a + b, 0);
+
+    document.getElementById("stat-filters").innerText = filters;
+    document.getElementById("stat-views").innerText = views;
+    document.getElementById("stat-favorites").innerText = favs;
+}
