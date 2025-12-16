@@ -87,11 +87,11 @@ function getSelectedIngredients() {
 function getSearchQuery() {
     return document.getElementById("search-input").value.trim().toLowerCase();
 }
-trackEvent("filters_used");
-function filterRecipes() {
-    
 
-   const filtered = allRecipes
+function filterRecipes() {
+    trackEvent("filters_used");
+
+    const filtered = allRecipes
     .map(recipe => {
         const missingCount = getSelectedIngredients()
             .filter(i => !recipe.ingredients.includes(i)).length;
@@ -104,8 +104,8 @@ function filterRecipes() {
     })
     .sort((a, b) => a.score - b.score); // best match first
 
-
     renderRecipes(filtered);
+    updateStats();
 }
 
 function clearFilters() {
@@ -146,16 +146,14 @@ function toggleFavorite(id, btn) {
     }
 
     saveFavorites(favs);
+    updateStats();
 }
 
 // ===============================
 // MODAL (RECIPE DETAILS)
 // ===============================
-const modal = document.getElementById("recipe-modal");
-const closeModalBtn = document.getElementById("close-modal");
-
-trackEvent("recipe_views", recipe.id);
 function openModal(recipe) {
+    trackEvent("recipe_views", recipe.id);
     
     const modal = document.getElementById("recipe-modal");
     if (!modal) return;
@@ -169,14 +167,8 @@ function openModal(recipe) {
         "<b>Calories:</b> " + recipe.calories;
 
     modal.classList.remove("hidden");
+    updateStats();
 }
-
-
-window.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.classList.add("hidden");
-    }
-});
 
 // ===============================
 // INIT
@@ -232,13 +224,18 @@ if (themeToggle) {
         closeModalBtn.addEventListener("click", () => {
             modal.classList.add("hidden");
         });
-
+    }
+    
+    if (modal) {
         window.addEventListener("click", (e) => {
             if (e.target === modal) {
                 modal.classList.add("hidden");
             }
         });
     }
+    
+    // Initialize stats display
+    updateStats();
 });
 
 // ===============================

@@ -218,12 +218,31 @@ body.dark .small {
 }
 .stats {
   background: #f1f3f5;
-  padding: 12px;
+  padding: 16px;
   border-radius: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.stats p {
+  margin: 8px 0;
   font-size: 14px;
+  color: #333;
+}
+
+.stats p:first-child {
+  margin-top: 0;
+}
+
+.stats p:last-child {
+  margin-bottom: 0;
 }
 
 body.dark .stats {
-  background: #1e1e1e;
+  background: #2a2a2a;
+  border-color: #404040;
+}
+
+body.dark .stats p {
+  color: #ddd;
 }
