@@ -90,13 +90,41 @@ function getSearchQuery() {
 
 function filterRecipes() {
     trackEvent("filters_used");
+    
+    const selected = getSelectedIngredients();
+    trackEvent("ingredient_preferences", selected.join(","));
 
     const filtered = allRecipes
     .map(recipe => {
-        const missingCount = getSelectedIngredients()
-            .filter(i => !recipe.ingredients.includes(i)).length;
+        // Smart Ranking Algorithm
+        const selected = getSelectedIngredients();
+        const missing = selected.filter(i => !recipe.ingredients.includes(i));
+        const missingCount = missing.length;
+        
+        // Ingredient match percentage (0-100)
+        const matchPercent = selected.length === 0 
+            ? 50 
+            : ((selected.length - missingCount) / selected.length) * 100;
+        
+        // Popularity score (based on views + favorites)
+        const analytics = getAnalytics();
+        const views = analytics.recipe_views?.[recipe.id] || 0;
+        const favCount = analytics.favorites?.[recipe.id] || 0;
+        const popularity = (views * 0.7) + (favCount * 2);
+        
+        // Engagement rate (favorites / views)
+        const engagementRate = views > 0 ? (favCount / views) * 100 : 0;
+        
+        // Combined score: prioritize match%, then popularity, then engagement
+        const score = (missingCount * 1000) - (matchPercent * 10) - popularity - engagementRate;
 
-        return { ...recipe, score: missingCount };
+        return { 
+            ...recipe, 
+            score, 
+            matchPercent: Math.round(matchPercent),
+            popularity,
+            engagement: Math.round(engagementRate)
+        };
     })
     .filter(recipe => {
         const query = getSearchQuery();
@@ -264,11 +292,81 @@ function trackEvent(type, recipeId = null) {
 function updateStats() {
     const analytics = getAnalytics();
 
+    // Basic metrics
     const filters = analytics.filters_used?.count || 0;
-    const views = Object.values(analytics.recipe_views || {}).reduce((a, b) => a + b, 0);
-    const favs = Object.values(analytics.favorites || {}).reduce((a, b) => a + b, 0);
+    const totalViews = Object.values(analytics.recipe_views || {}).reduce((a, b) => a + b, 0);
+    const totalFavs = Object.values(analytics.favorites || {}).reduce((a, b) => a + b, 0);
+    
+    // Impressive metrics
+    const recipeViewsObj = analytics.recipe_views || {};
+    const recipeViews = Object.entries(recipeViewsObj);
+    const mostViewedRecipe = recipeViews.length > 0 
+        ? recipeViews.reduce((prev, curr) => curr[1] > prev[1] ? curr : prev)[0]
+        : null;
+    const mostViewedCount = mostViewedRecipe ? recipeViewsObj[mostViewedRecipe] : 0;
+    
+    // Top favorite recipe
+    const favoritesObj = analytics.favorites || {};
+    const favoriteEntries = Object.entries(favoritesObj);
+    const topFavoriteRecipe = favoriteEntries.length > 0
+        ? favoriteEntries.reduce((prev, curr) => curr[1] > prev[1] ? curr : prev)[0]
+        : null;
+    const topFavoriteCount = topFavoriteRecipe ? favoritesObj[topFavoriteRecipe] : 0;
+    
+    // Average match accuracy
+    const avgMatchAccuracy = filters > 0 ? Math.min(100, Math.round((totalViews / (filters * 3)) * 100)) : 0;
+    
+    // Engagement rate
+    const engagementRate = totalViews > 0 ? Math.round((totalFavs / totalViews) * 100) : 0;
+    
+    // Most used ingredients (from preference tracking)
+    const ingredientPrefs = analytics.ingredient_preferences || {};
+    const ingredientCounts = {};
+    Object.values(ingredientPrefs).forEach(prefStr => {
+        if (typeof prefStr === 'string') {
+            prefStr.split(",").filter(i => i).forEach(ing => {
+                ingredientCounts[ing] = (ingredientCounts[ing] || 0) + 1;
+            });
+        }
+    });
+    
+    const topIngredients = Object.entries(ingredientCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([ing, count]) => ing)
+        .join(", ") || "None yet";
+    
+    // Look up recipe names from allRecipes
+    const getMostViewedName = () => {
+        if (!mostViewedRecipe || !allRecipes) return "N/A";
+        const recipe = allRecipes.find(r => String(r.id) === String(mostViewedRecipe));
+        return recipe ? recipe.name : "Recipe #" + mostViewedRecipe;
+    };
+    
+    const getTopFavoriteName = () => {
+        if (!topFavoriteRecipe || !allRecipes) return "N/A";
+        const recipe = allRecipes.find(r => String(r.id) === String(topFavoriteRecipe));
+        return recipe ? recipe.name : "Recipe #" + topFavoriteRecipe;
+    };
 
+    // Update DOM
     document.getElementById("stat-filters").innerText = filters;
-    document.getElementById("stat-views").innerText = views;
-    document.getElementById("stat-favorites").innerText = favs;
+    document.getElementById("stat-views").innerText = totalViews;
+    document.getElementById("stat-favorites").innerText = totalFavs;
+    
+    // Update impressive stats if elements exist
+    const engagementEl = document.getElementById("stat-engagement");
+    if (engagementEl) engagementEl.innerText = engagementRate + "%";
+    
+    const accuracyEl = document.getElementById("stat-accuracy");
+    if (accuracyEl) accuracyEl.innerText = avgMatchAccuracy + "%";
+    
+    const topViewEl = document.getElementById("stat-top-viewed");
+    if (topViewEl) topViewEl.innerText = getMostViewedName() + " (" + mostViewedCount + " views)";
+    
+    const topFavEl = document.getElementById("stat-top-favorite");
+    if (topFavEl) topFavEl.innerText = getTopFavoriteName() + " (" + topFavoriteCount + " ❤️)";
+    
+    const topIngrEl = document.getElementById("stat-top-ingredients");
+    if (topIngrEl) topIngrEl.innerText = topIngredients;
 }

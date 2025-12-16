@@ -51,9 +51,31 @@
     <hr class="divider" />
 
     <section id="stats" class="stats">
-      <p><b>Total Filters Used:</b> <span id="stat-filters">0</span></p>
-      <p><b>Total Recipe Views:</b> <span id="stat-views">0</span></p>
-      <p><b>Total Favorites:</b> <span id="stat-favorites">0</span></p>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Total Filters Used:</span>
+          <span class="stat-value" id="stat-filters">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Total Recipe Views:</span>
+          <span class="stat-value" id="stat-views">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Total Favorites:</span>
+          <span class="stat-value" id="stat-favorites">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Engagement Rate:</span>
+          <span class="stat-value" id="stat-engagement">0%</span>
+        </div>
+      </div>
+      
+      <div class="stats-detail">
+        <p><b>📊 Match Accuracy:</b> <span id="stat-accuracy">0%</span></p>
+        <p><b>🔥 Top Viewed:</b> <span id="stat-top-viewed">N/A</span></p>
+        <p><b>❤️ Top Favorite:</b> <span id="stat-top-favorite">N/A</span></p>
+        <p><b>🥘 Top Ingredients:</b> <span id="stat-top-ingredients">None yet</span></p>
+      </div>
     </section>
 
     <section id="recipes-container" class="grid">
