@@ -255,7 +255,7 @@ body.dark .small {
   font-weight: 700;
   color: #fff;
 }
-
+  
 .stats-detail {
   background: rgba(255, 255, 255, 0.08);
   padding: 12px;
@@ -296,4 +296,8 @@ body.dark .stat-item {
 body.dark .stats-detail {
   background: rgba(255, 255, 255, 0.03);
   border-color: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  transition: background-color 0.2s ease, color 0.2s ease;  
 }
