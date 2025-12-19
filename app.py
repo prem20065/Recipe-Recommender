@@ -1,6 +1,9 @@
 import os
 import json
 from flask import Flask, render_template, jsonify, send_from_directory
+from flask import request
+from ml.recommender import recommend
+
 
 # Get absolute path to app directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -40,3 +43,14 @@ def template_image(filename):
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8000))
     app.run(host='0.0.0.0', port=port, debug=False)
+    
+@app.route("/api/ml-recommend", methods=["POST"])
+def ml_recommend():
+    data = request.json
+    ingredients = data.get("ingredients", [])
+
+    if not ingredients:
+        return jsonify([])
+
+    results = recommend(ingredients)
+    return jsonify(results)
