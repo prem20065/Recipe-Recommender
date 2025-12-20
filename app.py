@@ -54,3 +54,16 @@ def ml_recommend():
 
     results = recommend(ingredients)
     return jsonify(results)
+from ml.ingredient_extractor import extract_ingredients
+from ml.recommender import recommend
+
+@app.route("/api/nl-recommend", methods=["POST"])
+def nl_recommend():
+    query = request.json.get("query", "")
+    ingredients = extract_ingredients(query)
+
+    if not ingredients:
+        return jsonify([])
+
+    results = recommend(ingredients)
+    return jsonify(results)

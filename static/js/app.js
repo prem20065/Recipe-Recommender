@@ -370,3 +370,18 @@ function updateStats() {
     const topIngrEl = document.getElementById("stat-top-ingredients");
     if (topIngrEl) topIngrEl.innerText = topIngredients;
 }
+
+document.getElementById("nlSearchBtn").addEventListener("click", async () => {
+  const query = document.getElementById("nlQuery").value;
+
+  if (!query.trim()) return;
+
+  const res = await fetch("/api/nl-recommend", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query })
+  });
+
+  const data = await res.json();
+  renderRecipes(data);
+});
