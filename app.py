@@ -3,6 +3,10 @@ import json
 from flask import Flask, render_template, jsonify, send_from_directory
 from flask import request
 from ml.recommender import recommend
+from ml.ingredient_extractor import extract_ingredients
+from ml.recommender import recommend
+from ml.semantic_recommender import semantic_recommend
+
 
 
 # Get absolute path to app directory
@@ -54,8 +58,6 @@ def ml_recommend():
 
     results = recommend(ingredients)
     return jsonify(results)
-from ml.ingredient_extractor import extract_ingredients
-from ml.recommender import recommend
 
 @app.route("/api/nl-recommend", methods=["POST"])
 def nl_recommend():
@@ -67,3 +69,9 @@ def nl_recommend():
 
     results = recommend(ingredients)
     return jsonify(results)
+@app.route("/api/semantic-search", methods=["POST"])
+def semantic_search():
+    query = request.json.get("query", "")
+    results = semantic_recommend(query)
+    return jsonify(results)
+
