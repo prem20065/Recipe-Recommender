@@ -9,6 +9,7 @@ from ml.semantic_recommender import semantic_recommend
 
 
 
+
 # Get absolute path to app directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -75,3 +76,20 @@ def semantic_search():
     results = semantic_recommend(query)
     return jsonify(results)
 
+from utils.image_fetcher import get_recipe_image
+
+@app.route("/api/ml-recommend", methods=["POST"])
+def ml_recommend():
+    data = request.json
+    ingredients = data.get("ingredients", [])
+
+    results = recommend(ingredients)
+
+    enriched = []
+    for r in results:
+        enriched.append({
+            "name": r,
+            "image": get_recipe_image(r)
+        })
+
+    return jsonify(enriched)

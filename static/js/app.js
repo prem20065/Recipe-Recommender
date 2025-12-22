@@ -21,57 +21,20 @@ async function loadRecipes() {
 // RENDER RECIPES
 // ===============================
 function renderRecipes(recipes) {
-    const container = document.getElementById("recipes-container");
-    container.innerHTML = "";
+  recipeContainer.innerHTML = "";
 
-    if (recipes.length === 0) {
-        container.innerHTML = "<p>No recipes found for selected ingredients.</p>";
-        return;
-    }
+  recipes.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "recipe-card";
 
-    const selected = getSelectedIngredients();
+    card.innerHTML = `
+      <img src="${r.image}" alt="${r.name}" />
+      <h3>${r.name}</h3>
+      <p>Recommended based on your ingredients</p>
+    `;
 
-    recipes.forEach(recipe => {
-        const card = document.createElement("div");
-        card.className = "recipe-card";
-
-        const missing = recipe.ingredients.filter(i => !selected.includes(i));
-        const missingText =
-            selected.length === 0
-                ? ""
-                : `<p class="small"><b>Missing:</b> ${missing.join(", ") || "None"}</p>`;
-
-        const favHtml = `
-            <button class="favorite-btn ${isFavorite(recipe.id) ? "favorite-on" : ""}">
-                ♥
-            </button>
-        `;
-
-        card.innerHTML = `
-            <img src="${recipe.image || '/static/images/placeholder.png'}" alt="${recipe.name}">
-            <div class="recipe-content">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h2 class="recipe-title">${recipe.name}</h2>
-                    ${favHtml}
-                </div>
-                <p class="small"><b>Ingredients:</b> ${recipe.ingredients.join(", ")}</p>
-                ${missingText}
-                <p class="small"><b>Calories:</b> ${recipe.calories}</p>
-            </div>
-        `;
-
-        container.appendChild(card);
-
-        // open modal on card click
-        card.addEventListener("click", () => openModal(recipe));
-
-        // favorite button (prevent modal opening)
-        const favBtn = card.querySelector(".favorite-btn");
-        favBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            toggleFavorite(recipe.id, favBtn);
-        });
-    });
+    recipeContainer.appendChild(card);
+  });
 }
 
 // ===============================
@@ -385,3 +348,10 @@ document.getElementById("nlSearchBtn").addEventListener("click", async () => {
   const data = await res.json();
   renderRecipes(data);
 });
+fetch("/api/semantic-search", {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({ query: "quick spicy vegetarian dinner" })
+})
+.then(res => res.json())
+.then(console.log)
