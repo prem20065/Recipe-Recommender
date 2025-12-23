@@ -70,6 +70,7 @@ def nl_recommend():
 
     results = recommend(ingredients)
     return jsonify(results)
+#semantic search endpoint
 @app.route("/api/semantic-search", methods=["POST"])
 def semantic_search():
     query = request.json.get("query", "")
@@ -78,6 +79,7 @@ def semantic_search():
 
 from utils.image_fetcher import get_recipe_image
 
+#api endpoint that returns recipe recommendations with images
 @app.route("/api/ml-recommend", methods=["POST"])
 def ml_recommend():
     data = request.json
