@@ -1,30 +1,29 @@
 [
-  {
-    "id": 1,
-    "name": "Tomato Egg Stir Fry",
-    "ingredients": ["egg", "tomato", "oil", "salt"],
-    "steps": "Beat eggs, fry in oil, add tomatoes and salt, cook for a few minutes.",
-    "calories": 250,
-    "veg": false,
-    "image": "/images/tomato egg stir fry.jpg"
-  },
-  {
-    "id": 2,
-    "name": "Simple Veg Fried Rice",
-    "ingredients": ["rice", "carrot", "peas", "onion", "oil", "soy sauce", "salt"],
-    "steps": "Stir fry veggies, add cooked rice, soy sauce, salt. Mix well.",
-    "calories": 400,
-    "veg": true,
-    "image": "/images/veg-fried-rice.jpg"
-  },
-  {
-    "id": 3,
-    "name": "Masala Maggi",
-    "ingredients": ["maggi", "water", "masala", "onion", "tomato"],
-    "steps": "Cook maggi with water and masala, add sautéed onion and tomato.",
-    "calories": 350,
-    "veg": true,
-    "image": "/images/masala maggi.jpg"
-  }
-  
+  {"id": 1, "name": "Tomato Egg Stir Fry", "ingredients": ["egg", "tomato", "oil", "salt", "onion", "garlic"], "steps": "Heat oil, add garlic and onion. Add beaten eggs. Add tomatoes and salt. Cook 5-7 minutes until eggs are cooked through.", "calories": 250, "veg": false, "cuisine": "Asian", "prepTime": 15, "servings": 2},
+  {"id": 2, "name": "Simple Veg Fried Rice", "ingredients": ["rice", "carrot", "peas", "onion", "oil", "soy sauce", "salt", "garlic"], "steps": "Stir fry veggies in hot oil with garlic. Add cooked rice, soy sauce, and salt. Mix well for 3-4 minutes.", "calories": 400, "veg": true, "cuisine": "Asian", "prepTime": 20, "servings": 3},
+  {"id": 3, "name": "Masala Maggi", "ingredients": ["maggi", "water", "masala", "onion", "tomato", "oil", "salt"], "steps": "Cook maggi with water and masala as per packet. In another pan, sauté onion and tomato. Mix with maggi.", "calories": 350, "veg": true, "cuisine": "Asian", "prepTime": 10, "servings": 1},
+  {"id": 4, "name": "Paneer Tikka", "ingredients": ["paneer", "yogurt", "ginger", "garlic", "lemon", "chili powder", "oil"], "steps": "Marinate paneer in yogurt mixture for 30 mins. Grill or pan-fry until golden. Serve with mint chutney.", "calories": 300, "veg": true, "cuisine": "Indian", "prepTime": 45, "servings": 4},
+  {"id": 5, "name": "Chicken Biryani", "ingredients": ["chicken", "rice", "onion", "tomato", "ginger", "garlic", "yogurt", "spices", "oil"], "steps": "Layer marinated chicken with partially cooked rice. Seal and cook on high heat for 5 mins, then low heat for 45 mins.", "calories": 500, "veg": false, "cuisine": "Indian", "prepTime": 60, "servings": 4},
+  {"id": 6, "name": "Chole Bhature", "ingredients": ["chickpeas", "flour", "yogurt", "oil", "onion", "tomato", "spices", "salt"], "steps": "Prepare batter from flour and yogurt. Deep fry until fluffy. Cook soaked chickpeas with onion, tomato and spices.", "calories": 450, "veg": true, "cuisine": "Indian", "prepTime": 120, "servings": 4},
+  {"id": 7, "name": "Butter Chicken", "ingredients": ["chicken", "butter", "cream", "tomato", "ginger", "garlic", "onion", "spices"], "steps": "Cook chicken in tandoori spices. Prepare sauce with butter, cream, and tomato puree. Mix chicken with sauce.", "calories": 480, "veg": false, "cuisine": "Indian", "prepTime": 50, "servings": 4},
+  {"id": 8, "name": "Margherita Pizza", "ingredients": ["flour", "tomato", "mozzarella", "basil", "olive oil", "salt", "yeast"], "steps": "Prepare dough with flour and yeast. Spread tomato sauce, add mozzarella and basil. Bake at 450F for 15 minutes.", "calories": 350, "veg": true, "cuisine": "Italian", "prepTime": 45, "servings": 2},
+  {"id": 9, "name": "Pasta Carbonara", "ingredients": ["pasta", "bacon", "egg", "parmesan", "black pepper", "olive oil"], "steps": "Cook pasta. Fry bacon until crispy. Mix eggs with parmesan. Toss hot pasta with bacon, then add egg mixture.", "calories": 420, "veg": false, "cuisine": "Italian", "prepTime": 25, "servings": 2},
+  {"id": 10, "name": "Dal Makhani", "ingredients": ["kidney beans", "black lentils", "butter", "cream", "tomato", "onion", "ginger", "garlic"], "steps": "Slow cook lentils and beans. Prepare cream sauce with butter, tomato, and spices. Mix and simmer for 15 mins.", "calories": 320, "veg": true, "cuisine": "Indian", "prepTime": 90, "servings": 4},
+  {"id": 11, "name": "Aloo Gobi", "ingredients": ["potato", "cauliflower", "onion", "tomato", "ginger", "garlic", "turmeric", "oil"], "steps": "Cube potatoes and cauliflower. Fry separately until golden. Combine with onion-tomato base and spices. Cook 10 mins.", "calories": 280, "veg": true, "cuisine": "Indian", "prepTime": 35, "servings": 3},
+  {"id": 12, "name": "Shrimp Scampi", "ingredients": ["shrimp", "garlic", "white wine", "butter", "lemon", "parsley", "olive oil"], "steps": "Sauté garlic in olive oil and butter. Add shrimp and cook 2-3 mins each side. Deglaze with wine and lemon juice.", "calories": 280, "veg": false, "cuisine": "Italian", "prepTime": 20, "servings": 2},
+  {"id": 13, "name": "Greek Salad", "ingredients": ["tomato", "cucumber", "feta", "olive", "olive oil", "lemon", "oregano"], "steps": "Chop tomatoes, cucumbers and olives. Add crumbled feta. Dress with olive oil, lemon juice and oregano.", "calories": 200, "veg": true, "cuisine": "Greek", "prepTime": 10, "servings": 2},
+  {"id": 14, "name": "Fish Curry", "ingredients": ["fish", "coconut milk", "turmeric", "chili", "onion", "ginger", "garlic", "oil"], "steps": "Fry onions with ginger-garlic. Add turmeric and chili. Add fish and coconut milk. Simmer 15 minutes.", "calories": 380, "veg": false, "cuisine": "Asian", "prepTime": 30, "servings": 3},
+  {"id": 15, "name": "Vegetable Hakka Noodles", "ingredients": ["noodles", "cabbage", "carrot", "bell pepper", "soy sauce", "oil", "garlic", "ginger"], "steps": "Boil noodles. Stir-fry chopped vegetables with garlic-ginger. Add noodles and soy sauce. Toss well.", "calories": 320, "veg": true, "cuisine": "Asian", "prepTime": 20, "servings": 2},
+  {"id": 16, "name": "Tandoori Chicken", "ingredients": ["chicken", "yogurt", "ginger", "garlic", "chili", "turmeric", "oil"], "steps": "Marinate chicken in yogurt-spice mix for 4 hours. Grill until cooked through and charred.", "calories": 280, "veg": false, "cuisine": "Indian", "prepTime": 240, "servings": 4},
+  {"id": 17, "name": "Samosas", "ingredients": ["flour", "potato", "peas", "onion", "oil", "cumin", "salt"], "steps": "Prepare dough. Make spiced potato-pea filling. Wrap in triangles. Deep fry until golden.", "calories": 350, "veg": true, "cuisine": "Indian", "prepTime": 60, "servings": 8},
+  {"id": 18, "name": "Ramen Bowl", "ingredients": ["noodles", "broth", "egg", "pork", "green onion", "mushroom", "sesame"], "steps": "Simmer broth. Cook noodles. Prepare toppings with soft-boiled egg and pork. Assemble and serve hot.", "calories": 480, "veg": false, "cuisine": "Asian", "prepTime": 45, "servings": 2},
+  {"id": 19, "name": "Caprese Sandwich", "ingredients": ["bread", "mozzarella", "tomato", "basil", "olive oil", "balsamic"], "steps": "Slice bread and layer with mozzarella, tomato, and basil. Drizzle with olive oil and balsamic vinegar.", "calories": 320, "veg": true, "cuisine": "Italian", "prepTime": 10, "servings": 1},
+  {"id": 20, "name": "Biryani Rice", "ingredients": ["rice", "onion", "ginger", "garlic", "spices", "ghee", "yogurt"], "steps": "Parboil rice. Layer with fried onions and spiced yogurt. Cook covered until rice is tender.", "calories": 420, "veg": true, "cuisine": "Indian", "prepTime": 50, "servings": 4},
+  {"id": 21, "name": "Tom Yum Soup", "ingredients": ["shrimp", "lemongrass", "galangal", "lime", "chili", "fish sauce", "mushroom"], "steps": "Simmer lemongrass and galangal in broth. Add shrimp and mushrooms. Season with lime and fish sauce.", "calories": 150, "veg": false, "cuisine": "Thai", "prepTime": 25, "servings": 2},
+  {"id": 22, "name": "Pad Thai", "ingredients": ["rice noodles", "shrimp", "egg", "peanut", "lime", "fish sauce", "bean sprouts"], "steps": "Stir-fry noodles with shrimp and egg. Add sauce ingredients and toss. Top with peanuts and sprouts.", "calories": 420, "veg": false, "cuisine": "Thai", "prepTime": 20, "servings": 2},
+  {"id": 23, "name": "Risotto", "ingredients": ["arborio rice", "vegetable broth", "white wine", "parmesan", "butter", "onion"], "steps": "Toast rice. Add warm broth gradually while stirring. Add wine and parmesan. Cook until creamy.", "calories": 380, "veg": true, "cuisine": "Italian", "prepTime": 40, "servings": 3},
+  {"id": 24, "name": "Biryani Vegetables", "ingredients": ["mixed vegetables", "rice", "onion", "ghee", "yogurt", "spices"], "steps": "Layer parboiled rice with vegetables cooked in yogurt-spice mixture. Cook covered until flavors meld.", "calories": 380, "veg": true, "cuisine": "Indian", "prepTime": 50, "servings": 4},
+  {"id": 25, "name": "Chow Mein", "ingredients": ["noodles", "cabbage", "carrot", "soy sauce", "egg", "oil", "garlic"], "steps": "Cook and crisp noodles. Stir-fry vegetables and egg. Mix with noodles and soy sauce.", "calories": 380, "veg": true, "cuisine": "Asian", "prepTime": 20, "servings": 2},
+  {"id": 26, "name": "Mushroom Risotto", "ingredients": ["arborio rice", "mushroom", "vegetable broth", "parmesan", "butter", "onion", "white wine"], "steps": "Sauté mushrooms separately. Toast rice and gradually add warm broth. Finish with parmesan and mushrooms.", "calories": 360, "veg": true, "cuisine": "Italian", "prepTime": 40, "servings": 3},
+  {"id": 27, "name": "Lentil Soup", "ingredients": ["lentils", "vegetable broth", "carrot", "celery", "onion", "garlic", "tomato"], "steps": "Sauté aromatic vegetables. Add lentils and broth. Simmer 30 minutes until lentils are tender.", "calories": 220, "veg": true, "cuisine": "Mediterranean", "prepTime": 45, "servings": 4}
 ]

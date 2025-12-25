@@ -1,11 +1,10 @@
 import os
 import json
-from flask import Flask, render_template, jsonify, send_from_directory
-from flask import request
+from flask import Flask, render_template, jsonify, send_from_directory, request
 from ml.recommender import recommend
 from ml.ingredient_extractor import extract_ingredients
-from ml.recommender import recommend
 from ml.semantic_recommender import semantic_recommend
+from UTILS.image_fetcher import get_recipe_image
 
 
 
@@ -58,7 +57,17 @@ def ml_recommend():
         return jsonify([])
 
     results = recommend(ingredients)
-    return jsonify(results)
+    enriched = []
+    for r in results:
+        recipe_name = r.get("name") if isinstance(r, dict) else r
+        enriched.append({
+            "name": recipe_name,
+            "image": get_recipe_image(recipe_name),
+            "cuisine": r.get("cuisine", "") if isinstance(r, dict) else "",
+            "calories": r.get("calories", 0) if isinstance(r, dict) else 0,
+            "prepTime": r.get("prepTime", 0) if isinstance(r, dict) else 0
+        })
+    return jsonify(enriched)
 
 @app.route("/api/nl-recommend", methods=["POST"])
 def nl_recommend():
@@ -69,29 +78,30 @@ def nl_recommend():
         return jsonify([])
 
     results = recommend(ingredients)
-    return jsonify(results)
+    enriched = []
+    for r in results:
+        recipe_name = r.get("name") if isinstance(r, dict) else r
+        enriched.append({
+            "name": recipe_name,
+            "image": get_recipe_image(recipe_name),
+            "cuisine": r.get("cuisine", "") if isinstance(r, dict) else "",
+            "calories": r.get("calories", 0) if isinstance(r, dict) else 0,
+            "prepTime": r.get("prepTime", 0) if isinstance(r, dict) else 0
+        })
+    return jsonify(enriched)
 #semantic search endpoint
 @app.route("/api/semantic-search", methods=["POST"])
 def semantic_search():
     query = request.json.get("query", "")
     results = semantic_recommend(query)
-    return jsonify(results)
-
-from utils.image_fetcher import get_recipe_image
-
-#api endpoint that returns recipe recommendations with images
-@app.route("/api/ml-recommend", methods=["POST"])
-def ml_recommend():
-    data = request.json
-    ingredients = data.get("ingredients", [])
-
-    results = recommend(ingredients)
-
     enriched = []
     for r in results:
+        recipe_name = r.get("name", r) if isinstance(r, dict) else r
         enriched.append({
-            "name": r,
-            "image": get_recipe_image(r)
+            "name": recipe_name,
+            "image": get_recipe_image(recipe_name),
+            "cuisine": r.get("cuisine", "") if isinstance(r, dict) else "",
+            "calories": r.get("calories", 0) if isinstance(r, dict) else 0,
+            "prepTime": r.get("prepTime", 0) if isinstance(r, dict) else 0
         })
-
     return jsonify(enriched)

@@ -14,6 +14,9 @@ A smart, user-friendly recipe recommendation web application that suggests dishe
 - Responsive UI for desktop & mobile
 
 ---
+## Current Focus
+- Improving semantic search accuracy
+- Preparing system for dynamic image integration
 
 ## 🛠️ Tech Stack
 - **Backend:** Flask (Python)
