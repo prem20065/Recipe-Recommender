@@ -1,41 +1,44 @@
 # 🍽️ Recipe Recommender Web App
 
-A smart, user-friendly recipe recommendation web application that suggests dishes based on available ingredients, tracks user interactions, and provides a clean modern UI.
+A smart and evolving recipe recommendation web application that suggests dishes based on available ingredients, with a focus on clean backend logic, ML-driven ranking, and scalable system design.
 
 ---
 
 ## 🚀 Features
-- Ingredient-based recipe filtering
+- Ingredient-based recipe recommendation
 - Smart ranking (best match first)
-- Recipe images & detailed steps
-- Favorites with persistence
-- Dark mode support 🌙
-- Client-side analytics (views, filters, favorites)
-- Responsive UI for desktop & mobile
+- Clean and responsive UI
+- Backend-driven recommendation logic
+- Scalable architecture for ML & AI extensions
 
 ---
-## Current Focus
+
+## 🎯 Current Focus
 - Improving semantic search accuracy
-- Preparing system for dynamic image integration
+- Frontend–ML integration
+- Preparing the system for dynamic image enrichment
+
+---
 
 ## 🛠️ Tech Stack
 - **Backend:** Flask (Python)
 - **Frontend:** HTML, CSS, JavaScript
+- **ML/NLP:** Content-based recommendation, semantic search
 - **Deployment:** Render
-- **Storage:** LocalStorage (analytics & favorites)
 
 ---
 
-## 📊 Smart Capabilities
-- Highlights recipes that can be cooked immediately
-- Ranks recipes based on ingredient match
-- Tracks user interactions for analytics insights
+## 🧠 Smart Capabilities
+- Recommends recipes based on available ingredients
+- Prioritizes recipes that can be cooked immediately
+- Designed to evolve into an AI-powered assistant
 
 ---
 
 ## 🌐 Live Demo
-👉https://recipe-recommender-14.onrender.com/
+👉 https://recipe-recommender-14.onrender.com/
 
+---
 
 ## 📦 How to Run Locally
 
